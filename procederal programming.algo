@@ -1,48 +1,133 @@
 
-function read_vector(i,j,n:INTEGER, v1,v2: array of integer)
-var i: Integer
-    j:Integer
-    n:Integer
+FUNCTION read_size(): INTEGER
+var  n1: INTEGER;
 begin
-for i from 0 to n step 1 do
+repeat
+   Read(n1)
+until (n1<=0 or n1>50)
+return n1;
+end
+
+FUNCTION read_size(): INTEGER
+var  n2: INTEGER;
+begin
+repeat
+   Read(n2)
+until (n2<=0 or n2>50)
+return n2;
+end
+
+FUNCTION read_vector(): INTEGER, Array_of_INTEGER
+var  n1: INTEGER;
+     v1:Array_of_INTEGER
+     i: INTEGER
+begin
+for i from 0 to n1 step 1 do
 Read (v1[i])
 end for
-for j from 0 to n step 1 do
-Read (v2[j])
-end for
+return v1;
 end
 
-//////
-
-PROCEDURE dot_product (PS, v1, v2)
-var
-PS=0
-v1, v2: Array_of_INTEGER
-i,j,n:INTEGER
+FUNCTION read_vector(): INTEGER, Array_of_INTEGER
+var  n2: INTEGER;
+     v2:Array_of_INTEGER
+     i: INTEGER
 begin
-for i from 0 to n step 1 and  j from 0 to n step 1 do
-  PS=Ps + v1[i]*v2[j]
-  if PS=0 then
-     Write (v1 and v2 are orthogonal)
-   else
-     Write (v1 and v2 are not orthogonal)
+for i from 0 to n2 step 1 do
+Read (v2[i])
 end for
+return v2;
 end
 
-///////////
+
+PROCEDURE dot_product (var v1, v2 : Array_of_INTEGER; var PS: INTEGER )
+var
+i:INTEGER
+begin
+i = 0
+PS = 0
+if (v1.length <> v2.length) then
+  Write ('vectors with different size we can not calculate PS product')
+  else
+    while (i<v1.length) do
+    PS:=PS+(v1[i]*v2[i])
+    i++;
+    end while
+  end if
+end if
+end
 
 Algo: Procederal_programming
 var
-i: Integer
-j:Integer
-n:Integer
-PS=0
-v1, v2: Array_of_INTEGER
+v1, v2: Array_of_INTEGER [50]
+PS: INTEGER
+n1,n2: Integer
+
 begin
-// read vector whatever pairs of vectors
-read_vector(i,j,n)
-//calculate vector product v1 v2
-dot_product (PS, v1, v2)
-// calculate whatever n pairs of given vectors, whether two vectors of given IR are orthogonal
-PS=v1[i]*v2[j]
+// read size of elements of v1
+n1:= read_size()
+// read size of elements of v2
+n2:= read_size()
+
+//read elements of v1
+v1:= read_vector ()
+//read elements of v2
+v2:= read_vector ()
+
+// calculate whatever given vectors
+dot_product (v1, v2, PS)
+if PS=0 then
+     Write (v1 and v2 are orthogonal)
+   else
+     Write (v1 and v2 are not orthogonal)
 end :
+
+
+
+/**************************************************************************/
+
+FUNCTION dot product (var v1, v2 : Array_of_INTEGER):INTEGER
+var
+  PS , i : INTEGER
+begin
+  PS:=0
+  i:=0
+  if (v1.length <>v2.length) then
+   Write ('vectors with different size we can not calculate PS product')
+    else
+    while ( i< v1.length ) do
+    PS:=PS+(v1[i]*v2[i])
+    i++;
+    end while
+  end if
+  end if
+
+  return PS;
+end
+
+
+Algo: Procederal_programming
+var
+v1, v2: Array_of_INTEGER [50]
+PS: INTEGER
+n1,n2: Integer
+
+begin
+// read size of elements of v1
+n1:= read_size()
+// read size of elements of v2
+n2:= read_size()
+
+//read elements of v1
+v1:= read_vector ()
+//read elements of v2
+v2:= read_vector ()
+
+// calculate whatever given vectors
+PS:= dot_product (v1,v2)
+if PS=0 then
+     Write (v1 and v2 are orthogonal)
+   else
+     Write (v1 and v2 are not orthogonal)
+end
+ 
